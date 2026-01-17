@@ -1,0 +1,24 @@
+{
+  "name": "mobila-intent-api",
+  "version": "1.0.0",
+  "description": "Intent Interpreter API for Mobility Application",
+  "main": "dist/src/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/main.js",
+    "dev": "ts-node src/main.ts",
+    "server": "ts-node src/main.ts --server"
+  },
+  "keywords": [
+    "intent",
+    "mobility",
+    "accessibility",
+    "api"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  }
+}
