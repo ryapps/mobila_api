@@ -12,4 +12,4 @@ export * from './application/use-cases/parse-intent.use-case';
 
 export * from './infrastructure/parsers/intent-parser';
 
-export { createContainer } from './main';
+export { createContainer } from './container';
