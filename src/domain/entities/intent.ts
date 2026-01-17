@@ -22,9 +22,13 @@ export interface CancelActionIntent {
   intent: 'CANCEL_ACTION';
 }
 
-export type Intent = GoToPlaceIntent | RequestRecommendationIntent | ConfirmActionIntent | CancelActionIntent;
+export interface UnknownIntent {
+  intent: 'UNKNOWN';
+}
 
-export type IntentType = 'GO_TO_PLACE' | 'REQUEST_RECOMMENDATION' | 'CONFIRM_ACTION' | 'CANCEL_ACTION';
+export type Intent = GoToPlaceIntent | RequestRecommendationIntent | ConfirmActionIntent | CancelActionIntent | UnknownIntent;
+
+export type IntentType = 'GO_TO_PLACE' | 'REQUEST_RECOMMENDATION' | 'CONFIRM_ACTION' | 'CANCEL_ACTION' | 'UNKNOWN';
 
 export type PlaceType = 'hospital' | 'office' | 'school' | 'other';
 export type UrgencyLevel = 'low' | 'medium' | 'high';

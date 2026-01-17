@@ -1,37 +1,165 @@
-// Domain Constants - Keyword mappings for intent detection
-
 export const KEYWORDS = {
-  // Place type keywords
-  hospital: ['rumah sakit', 'rs', 'klinik', 'igd', 'puskesmas', 'dokter'],
-  office: ['kantor', 'tempat kerja', 'kerja', 'office'],
-  school: ['sekolah', 'kampus', 'universitas', 'kuliah', 'belajar'],
+  /* =======================
+   * PLACE TYPE
+   * ======================= */
+  hospital: [
+    'rumah sakit', 'rs', 'rsu', 'rsud', 'rsia',
+    'klinik', 'klinik umum', 'klinik spesialis',
+    'igd', 'unit gawat darurat', 'emergency room', 'er',
+    'puskesmas', 'faskes', 'dokter', 'dokter umum',
+    'dokter spesialis', 'poliklinik', 'rawat inap',
+    'rawat jalan', 'bpjs'
+  ],
 
-  // Urgency keywords
-  highUrgency: ['sekarang', 'darurat', 'cepat', 'segera', 'igd', 'emergency', 'urgent'],
-  mediumUrgency: ['hari ini', 'sebentar lagi', 'nanti'],
+  office: [
+    'kantor', 'tempat kerja', 'kerja', 'office',
+    'perusahaan', 'pabrik', 'cabang', 'head office',
+    'kantor pusat', 'kantor cabang'
+  ],
 
-  // Time constraint keywords
-  now: ['sekarang', 'langsung', 'segera'],
-  scheduled: ['besok', 'nanti', 'jam', 'pukul', 'lusa'],
+  school: [
+    'sekolah', 'sd', 'smp', 'sma', 'smk',
+    'kampus', 'universitas', 'univ', 'institut',
+    'politeknik', 'kuliah', 'belajar'
+  ],
 
-  // Action keywords
-  confirm: ['ya', 'oke', 'ok', 'lanjutkan', 'setuju', 'iya', 'benar', 'betul', 'yup', 'yes', 'lanjut', 'boleh', 'baik'],
-  cancel: ['tidak', 'batal', 'cancel', 'tidak jadi', 'gak jadi', 'nggak', 'jangan', 'stop', 'batalkan'],
+  home: [
+    'rumah', 'pulang', 'ke rumah', 'balik rumah',
+    'tempat tinggal', 'kost', 'kos', 'kontrakan'
+  ],
 
-  // Recommendation keywords
-  recommendation: ['rekomendasi', 'saran', 'suggest', 'apa yang', 'mana yang', 'terbaik', 'paling aman', 'paling cepat', 'paling murah'],
+  publicPlace: [
+    'mall', 'mal', 'plaza', 'pasar', 'minimarket',
+    'supermarket', 'bandara', 'airport', 'stasiun',
+    'terminal', 'halte', 'pelabuhan'
+  ],
 
-  // Context keywords
-  transport: ['transportasi', 'kendaraan', 'mobil', 'motor', 'bus', 'kereta', 'ojek', 'taxi', 'taksi', 'angkutan'],
-  route: ['rute', 'jalan', 'jalur', 'arah', 'lewat mana'],
-  time: ['waktu', 'jam berapa', 'kapan', 'lama', 'durasi'],
+  /* =======================
+   * URGENCY
+   * ======================= */
+  highUrgency: [
+    'sekarang', 'darurat', 'gawat', 'kritis',
+    'cepat', 'segera', 'urgent', 'emergency',
+    'butuh cepat', 'butuh sekarang', 'panik'
+  ],
 
-  // Accessibility keywords
-  wheelchair: ['kursi roda', 'wheelchair'],
-  assistant: ['pendamping', 'dampingi', 'temani', 'assistant'],
-  stretcher: ['tidak bisa jalan', 'tandu', 'stretcher', 'baring'],
+  mediumUrgency: [
+    'hari ini', 'sebentar lagi', 'nanti',
+    'agak cepat', 'jangan lama'
+  ],
 
-  // Navigation keywords
-  goTo: ['ke', 'pergi', 'antar', 'jemput', 'menuju', 'berangkat', 'mau ke', 'ingin ke'],
-  question: ['apa', 'mana', 'bagaimana', 'gimana', '?'],
+  lowUrgency: [
+    'santai', 'pelan pelan', 'tidak buru-buru',
+    'kapan saja', 'bebas'
+  ],
+
+  /* =======================
+   * TIME CONSTRAINT
+   * ======================= */
+  now: [
+    'sekarang', 'langsung', 'segera',
+    'saat ini', 'detik ini'
+  ],
+
+  scheduled: [
+    'besok', 'lusa', 'minggu depan',
+    'nanti', 'jam', 'pukul', 'tanggal',
+    'pagi', 'siang', 'sore', 'malam'
+  ],
+
+  /* =======================
+   * ACTION CONFIRMATION
+   * ======================= */
+  confirm: [
+    'ya', 'iya', 'iyah', 'oke', 'ok',
+    'lanjutkan', 'setuju', 'benar', 'betul',
+    'yup', 'yes', 'lanjut', 'boleh', 'baik',
+    'gas', 'silakan', 'jalankan'
+  ],
+
+  cancel: [
+    'tidak', 'nggak', 'gak', 'batal', 'batalkan',
+    'cancel', 'tidak jadi', 'gak jadi',
+    'jangan', 'stop', 'udah gak', 'ga usah'
+  ],
+
+  /* =======================
+   * RECOMMENDATION
+   * ======================= */
+  recommendation: [
+    'rekomendasi', 'saran', 'sarankan',
+    'suggest', 'usulan', 'pilihan',
+    'apa yang', 'mana yang', 'yang mana',
+    'terbaik', 'paling aman', 'paling cepat',
+    'paling nyaman', 'paling murah'
+  ],
+
+  /* =======================
+   * CONTEXT
+   * ======================= */
+  transport: [
+    'transportasi', 'kendaraan', 'mobil', 'motor',
+    'bus', 'kereta', 'ojek', 'taxi', 'taksi',
+    'angkutan', 'ambulans', 'ride', 'car'
+  ],
+
+  route: [
+    'rute', 'jalan', 'jalur', 'arah',
+    'lewat mana', 'melalui', 'akses'
+  ],
+
+  time: [
+    'waktu', 'jam berapa', 'kapan',
+    'berapa lama', 'durasi', 'estimasi',
+    'eta'
+  ],
+
+  cost: [
+    'harga', 'biaya', 'tarif', 'ongkos',
+    'berapa', 'mahal', 'murah'
+  ],
+
+  /* =======================
+   * ACCESSIBILITY
+   * ======================= */
+  wheelchair: [
+    'kursi roda', 'wheelchair', 'pakai kursi roda'
+  ],
+
+  assistant: [
+    'pendamping', 'dampingi', 'temani',
+    'assistant', 'butuh bantuan'
+  ],
+
+  stretcher: [
+    'tidak bisa jalan', 'tidak bisa berdiri',
+    'tandu', 'stretcher', 'baring',
+    'terlentang'
+  ],
+
+  blind: [
+    'tunanetra', 'buta', 'tidak bisa lihat'
+  ],
+
+  deaf: [
+    'tunarungu', 'tuli', 'tidak bisa dengar'
+  ],
+
+  /* =======================
+   * NAVIGATION / INTENT
+   * ======================= */
+  goTo: [
+    'ke', 'pergi', 'antar', 'jemput',
+    'menuju', 'berangkat', 'mau ke',
+    'ingin ke', 'pengen ke', 'arah ke'
+  ],
+
+  returnHome: [
+    'pulang', 'balik', 'kembali'
+  ],
+
+  question: [
+    'apa', 'mana', 'bagaimana',
+    'gimana', 'kenapa', '?'
+  ]
 } as const;

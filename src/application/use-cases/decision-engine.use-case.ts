@@ -85,6 +85,9 @@ export class DecisionEngineUseCase {
       case 'CANCEL_ACTION':
         return this.createCancelledPlan();
 
+      case 'UNKNOWN':
+        return this.createErrorPlan('Saya tidak memahami maksud Anda.');
+
       default:
         return this.createErrorPlan('Intent tidak dikenali.');
     }

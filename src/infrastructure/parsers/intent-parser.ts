@@ -28,8 +28,8 @@ export class IntentParser implements IIntentParser {
       return this.buildGoToPlaceIntent(text);
     }
 
-    // Default: safest intent with conservative defaults
-    return this.buildDefaultIntent();
+    // Unknown intent when no keyword match
+    return { intent: 'UNKNOWN' };
   }
 
   private normalizeInput(input: string): string {
@@ -59,7 +59,13 @@ export class IntentParser implements IIntentParser {
 
   private isGoToPlaceIntent(text: string): boolean {
     const placeKeywords = [...KEYWORDS.hospital, ...KEYWORDS.office, ...KEYWORDS.school];
-    return this.containsAny(text, KEYWORDS.goTo) || this.containsAny(text, placeKeywords);
+    const hasPlaceKeyword = this.containsAny(text, placeKeywords);
+    if (hasPlaceKeyword) {
+      return true;
+    }
+
+    // Avoid triggering GO_TO_PLACE on generic phrases without place keywords
+    return false;
   }
 
   private detectPlaceType(text: string): PlaceType {
@@ -124,14 +130,5 @@ export class IntentParser implements IIntentParser {
     };
   }
 
-  private buildDefaultIntent(): GoToPlaceIntent {
-    return {
-      intent: 'GO_TO_PLACE',
-      place_type: 'other',
-      place_name: null,
-      urgency: 'medium',
-      time_constraint: 'now',
-      accessibility_needs: [],
-    };
-  }
+  // No default GO_TO_PLACE intent to avoid false confirmations
 }

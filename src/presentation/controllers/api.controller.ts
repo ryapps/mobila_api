@@ -196,6 +196,9 @@ export class ApiController {
       case 'CANCEL_ACTION':
         return { intent: 'CANCEL_ACTION' };
 
+      case 'UNKNOWN':
+        return { intent: 'UNKNOWN' };
+
       default:
         throw new Error(`Unknown intent type: ${intentType}`);
     }
