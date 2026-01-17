@@ -110,7 +110,8 @@ export class ApiController {
         return;
       }
 
-      const plan = this.decisionEngine.confirmPlan(body.planId, body.confirmed);
+      const fallbackIntent = this.buildFallbackIntent(body.confirmationPayload);
+      const plan = this.decisionEngine.confirmPlan(body.planId, body.confirmed, fallbackIntent);
 
       const response: ActionPlanResponseDto = {
         planId: plan.planId,
@@ -126,6 +127,28 @@ export class ApiController {
       const message = error instanceof Error ? error.message : 'Internal server error';
       this.sendJson(res, 400, { error: message });
     }
+  }
+
+  private buildFallbackIntent(payload?: Record<string, unknown>): Intent | undefined {
+    if (!payload) return undefined;
+
+    const destination = payload['destination'];
+    const destinationType = payload['destinationType'];
+    const urgency = payload['urgency'];
+    const accessibilityFeatures = payload['accessibilityFeatures'];
+
+    if (typeof destinationType !== 'string') {
+      return undefined;
+    }
+
+    return {
+      intent: 'GO_TO_PLACE',
+      place_type: destinationType as any,
+      place_name: typeof destination === 'string' ? destination : null,
+      urgency: typeof urgency === 'string' ? urgency : 'medium',
+      time_constraint: 'now',
+      accessibility_needs: Array.isArray(accessibilityFeatures) ? (accessibilityFeatures as string[]) : [],
+    } as GoToPlaceIntent;
   }
 
   /**

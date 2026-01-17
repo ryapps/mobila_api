@@ -30,20 +30,28 @@ export class DecisionEngineUseCase {
     return { plan };
   }
 
-  confirmPlan(planId: string, confirmed: boolean): ActionPlan {
+  confirmPlan(planId: string, confirmed: boolean, fallbackIntent?: Intent): ActionPlan {
     const pending = this.pendingPlans.get(planId);
 
-    if (!pending) {
-      return this.createErrorPlan('Plan tidak ditemukan atau sudah kedaluwarsa.');
-    }
+    if (pending) {
+      this.pendingPlans.delete(planId);
 
-    this.pendingPlans.delete(planId);
+      if (!confirmed) {
+        return this.createCancelledPlan();
+      }
+
+      return this.createExecutionPlan(pending.intent);
+    }
 
     if (!confirmed) {
       return this.createCancelledPlan();
     }
 
-    return this.createExecutionPlan(pending.intent);
+    if (fallbackIntent) {
+      return this.createExecutionPlan(fallbackIntent);
+    }
+
+    return this.createErrorPlan('Plan tidak ditemukan atau sudah kedaluwarsa.');
   }
 
   getPendingPlan(planId: string): { intent: Intent; userId: string } | undefined {

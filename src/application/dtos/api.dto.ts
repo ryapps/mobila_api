@@ -22,6 +22,7 @@ export interface DecideRequestDto {
 export interface ConfirmRequestDto {
   planId: string;
   confirmed: boolean;
+  confirmationPayload?: Record<string, unknown>;
 }
 
 export interface ActionPlanResponseDto {
