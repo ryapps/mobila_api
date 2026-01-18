@@ -97,14 +97,18 @@ export class DecisionEngineUseCase {
     const destination = this.resolveDestination(intent);
     const vehicle = this.selectVehicle(intent);
     const eta = this.estimateETA(intent);
+    const price = this.estimatePrice(eta, intent.urgency);
 
     const confirmationPayload: ConfirmationPayload = {
       destination: destination.name,
+      destinationAddress: destination.address,
       destinationType: intent.place_type,
       vehicle: vehicle.name,
       eta: `${eta} menit`,
       urgency: intent.urgency,
       accessibilityFeatures: intent.accessibility_needs,
+      price: this.formatCurrency(price),
+      paymentMethod: 'Tunai',
     };
 
     const steps: ActionStep[] = [
@@ -258,6 +262,18 @@ export class DecisionEngineUseCase {
     if (intent.urgency === 'high') return 5;
     if (intent.urgency === 'medium') return 10;
     return 15;
+  }
+
+  private estimatePrice(etaMinutes: number, urgency: 'low' | 'medium' | 'high'): number {
+    const baseFare = 12000;
+    const perMinute = 1200;
+    const urgencyMultiplier = urgency === 'high' ? 1.25 : urgency === 'low' ? 0.9 : 1.0;
+    const raw = (baseFare + etaMinutes * perMinute) * urgencyMultiplier;
+    return Math.round(raw / 500) * 500;
+  }
+
+  private formatCurrency(amount: number): string {
+    return `Rp ${amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
   }
 
   private getRecommendations(context: string): { id: string; title: string; description: string; eta?: string }[] {

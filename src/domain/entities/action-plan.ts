@@ -15,11 +15,14 @@ export interface ActionPlan {
 
 export interface ConfirmationPayload {
   destination: string;
+  destinationAddress?: string;
   destinationType: string;
   vehicle: string;
   eta: string;
   urgency: string;
   accessibilityFeatures: string[];
+  price?: string;
+  paymentMethod?: string;
 }
 
 export interface RecommendationPayload {
